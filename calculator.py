@@ -2,6 +2,8 @@ from tkinter import *
 
 root = Tk()
 
+addNumber = 0
+
 root.title("Simple Calculator")
 
 #text Feild
@@ -12,8 +14,29 @@ inputNumber.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
 #functions
 
 def buttonClicked(nummber):
+  # inputNumber.delete(0, END)
+  current = inputNumber.get()
   inputNumber.delete(0, END)
-  inputNumber.insert(0,nummber)
+  inputNumber.insert(0, str(current) + str(nummber))
+  
+
+def buttonClear():
+  inputNumber.delete(0, END)
+
+
+def buttonAdd(numberAdd):
+  global addNumber
+  addNumber = numberAdd
+  buttonClear()
+
+
+
+def buttonEquals():
+  secondNumber = int(inputNumber.get())
+  buttonClear()
+  inputNumber.insert(0, addNumber + secondNumber)
+  
+
 
 
 #Button
@@ -30,13 +53,13 @@ button_9 = Button(root, text="9", padx=40, pady=20, command=lambda:buttonClicked
 button_0 = Button(root, text="0", padx=40, pady=20, command=lambda:buttonClicked(0))
 
 #add Button
-button_add = Button(root, text="+", padx=39, pady=20, command=buttonClicked)
+button_add = Button(root, text="+", padx=39, pady=20, command=lambda:buttonAdd(int(inputNumber.get())))
 
 #equal button
-button_equal = Button(root, text="=", padx=91, pady=20, command=buttonClicked)
+button_equal = Button(root, text="=", padx=91, pady=20, command=buttonEquals)
 
 #clear button
-button_clear = Button(root, text="clear", padx=79, pady=20, command=buttonClicked)
+button_clear = Button(root, text="clear", padx=79, pady=20, command=buttonClear)
 
 
 #Enterying button On Screen
