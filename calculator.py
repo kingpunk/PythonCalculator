@@ -24,14 +24,17 @@ def buttonClicked(nummber):
 
 def buttonClear():
   inputNumber.delete(0, END)
+  firstNumber = 0
+  operationFlag=''
 
 
 def buttonAdd(numberAdd):
   global firstNumber
   global operationFlag
   firstNumber = numberAdd
-  operationFlag='+'
+  operationFlag = '+'
   buttonClear()
+  inputNumber.insert(0,str(firstNumber)+"+")
 
 def buttonSub(numberAdd):
   global firstNumber
@@ -39,6 +42,7 @@ def buttonSub(numberAdd):
   firstNumber = numberAdd
   operationFlag='-'
   buttonClear()
+  inputNumber.insert(0,str(firstNumber)+"-")
 
 def buttonDiv(numberAdd):
   global firstNumber
@@ -46,6 +50,7 @@ def buttonDiv(numberAdd):
   firstNumber = numberAdd
   operationFlag='/'
   buttonClear()
+  inputNumber.insert(0,str(firstNumber)+"/")
 
 def buttonMul(numberAdd):
   global firstNumber
@@ -53,22 +58,37 @@ def buttonMul(numberAdd):
   firstNumber = numberAdd
   operationFlag='*'
   buttonClear()
+  inputNumber.insert(0,str(firstNumber)+"*")
 
 
 
 def buttonEquals():
   global operationFlag
   global firstNumber
-  secondNumber = int(inputNumber.get())
-  buttonClear()
   if (operationFlag == '+'):
-    inputNumber.insert(0, firstNumber + secondNumber)
+    secondNumber = str(inputNumber.get())
+    index = secondNumber.find('+')+1
+    number = int(secondNumber[index])
+    buttonClear()
+    inputNumber.insert(0, firstNumber + number)
   elif (operationFlag == '-'):
-    inputNumber.insert(0, firstNumber - secondNumber)
+    secondNumber = str(inputNumber.get())
+    index = secondNumber.find('-')+1
+    number = int(secondNumber[index])
+    buttonClear()
+    inputNumber.insert(0, firstNumber - number)
   elif (operationFlag == '*'):
-    inputNumber.insert(0, firstNumber * secondNumber)
+    secondNumber = str(inputNumber.get())
+    index = secondNumber.find('*')+1
+    number = int(secondNumber[index])
+    buttonClear()
+    inputNumber.insert(0, firstNumber * number)
   elif (operationFlag == '/'):
-    inputNumber.insert(0, firstNumber / secondNumber)
+    secondNumber = str(inputNumber.get())
+    index = secondNumber.find('/')+1
+    number = int(secondNumber[index])
+    buttonClear()
+    inputNumber.insert(0, firstNumber / number)
   
   firstNumber = 0
   operationFlag=''
@@ -93,17 +113,17 @@ button_0 = Button(root, text="0", padx=40, pady=20, command=lambda:buttonClicked
 #add Button
 button_add = Button(root, text="+", padx=39, pady=20, command=lambda: buttonAdd(int(inputNumber.get())))
 #subtract Button
-button_sub = Button(root, text="-", padx=39, pady=20, command=lambda: buttonSub(int(inputNumber.get())))
+button_sub = Button(root, text="-", padx=41, pady=20, command=lambda: buttonSub(int(inputNumber.get())))
 #Divide Button
-button_div = Button(root, text="/", padx=39, pady=20, command=lambda: buttonDiv(int(inputNumber.get())))
+button_div = Button(root, text="/", padx=40, pady=20, command=lambda: buttonDiv(int(inputNumber.get())))
 #Multiply Button
-button_mul = Button(root, text="*", padx=39, pady=20, command=lambda:buttonMul(int(inputNumber.get())))
+button_mul = Button(root, text="*", padx=41, pady=20, command=lambda:buttonMul(int(inputNumber.get())))
 
 #equal button
-button_equal = Button(root, text="=", padx=91, pady=20, command=buttonEquals)
+button_equal = Button(root, text="=", padx=86, pady=20, command=buttonEquals)
 
 #clear button
-button_clear = Button(root, text="clear", padx=79, pady=20, command=buttonClear)
+button_clear = Button(root, text="clear", padx=77, pady=20, command=buttonClear)
 
 
 #Enterying button On Screen
