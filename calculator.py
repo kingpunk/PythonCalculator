@@ -2,7 +2,9 @@ from tkinter import *
 
 root = Tk()
 
-addNumber = 0
+firstNumber = 0
+operationFlag = ''
+
 
 root.title("Simple Calculator")
 
@@ -25,16 +27,52 @@ def buttonClear():
 
 
 def buttonAdd(numberAdd):
-  global addNumber
-  addNumber = numberAdd
+  global firstNumber
+  global operationFlag
+  firstNumber = numberAdd
+  operationFlag='+'
+  buttonClear()
+
+def buttonSub(numberAdd):
+  global firstNumber
+  global operationFlag
+  firstNumber = numberAdd
+  operationFlag='-'
+  buttonClear()
+
+def buttonDiv(numberAdd):
+  global firstNumber
+  global operationFlag
+  firstNumber = numberAdd
+  operationFlag='/'
+  buttonClear()
+
+def buttonMul(numberAdd):
+  global firstNumber
+  global operationFlag
+  firstNumber = numberAdd
+  operationFlag='*'
   buttonClear()
 
 
 
 def buttonEquals():
+  global operationFlag
+  global firstNumber
   secondNumber = int(inputNumber.get())
   buttonClear()
-  inputNumber.insert(0, addNumber + secondNumber)
+  if (operationFlag == '+'):
+    inputNumber.insert(0, firstNumber + secondNumber)
+  elif (operationFlag == '-'):
+    inputNumber.insert(0, firstNumber - secondNumber)
+  elif (operationFlag == '*'):
+    inputNumber.insert(0, firstNumber * secondNumber)
+  elif (operationFlag == '/'):
+    inputNumber.insert(0, firstNumber / secondNumber)
+  
+  firstNumber = 0
+  operationFlag=''
+    
   
 
 
@@ -53,7 +91,13 @@ button_9 = Button(root, text="9", padx=40, pady=20, command=lambda:buttonClicked
 button_0 = Button(root, text="0", padx=40, pady=20, command=lambda:buttonClicked(0))
 
 #add Button
-button_add = Button(root, text="+", padx=39, pady=20, command=lambda:buttonAdd(int(inputNumber.get())))
+button_add = Button(root, text="+", padx=39, pady=20, command=lambda: buttonAdd(int(inputNumber.get())))
+#subtract Button
+button_sub = Button(root, text="-", padx=39, pady=20, command=lambda: buttonSub(int(inputNumber.get())))
+#Divide Button
+button_div = Button(root, text="/", padx=39, pady=20, command=lambda: buttonDiv(int(inputNumber.get())))
+#Multiply Button
+button_mul = Button(root, text="*", padx=39, pady=20, command=lambda:buttonMul(int(inputNumber.get())))
 
 #equal button
 button_equal = Button(root, text="=", padx=91, pady=20, command=buttonEquals)
@@ -82,7 +126,12 @@ button_0.grid(row=4,column=0)
 button_add.grid(row=5, column=0)
 
 button_equal.grid(row=5, column=1,columnspan=2)
-button_clear.grid(row=4,column=1,columnspan=2)
+button_clear.grid(row=4, column=1, columnspan=2)
+
+
+button_sub.grid(row=6, column=0)
+button_div.grid(row=6, column=1)
+button_mul.grid(row=6,column=2)
 
 
 root.mainloop()
